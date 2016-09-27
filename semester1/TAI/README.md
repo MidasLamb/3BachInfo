@@ -1,0 +1,1 @@
+# Toepassingen van de algebra in de informatica
