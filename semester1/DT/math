@@ -1,0 +1,8 @@
+nul.
+
+plus_dt(nul,X,X).
+plus_dt(s(X),Y,s(Z)):-plus_dt(X,Y,Z).
+
+maal(s(nul),X,X).
+maal(nul,X,nul).
+maal(s(X),Y,Z):-maal(X,Y,R),plus_dt(R,Y,Z).
