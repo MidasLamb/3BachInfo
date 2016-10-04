@@ -1,0 +1,37 @@
+leeg.
+
+
+som(Boom,Som):-som(Boom,0,Som).
+
+som(leeg,Acc,Acc).
+som(node(L,R,W), Acc, Som):-som(L,Acc,Acc1),
+        Acc2 is Acc1+W,
+        som(R,Acc2,Som).
+
+
+zoek(node(L,R,W), Z):-W=Z;
+        Z<W,zoek(L,Z);
+        W<Z,zoek(R,Z).
+        
+
+voegToe(E, leeg, node(leeg,leeg, E)).
+voegToe(E, node(L,R,W), node(L1,R,W)):-E<W,voegToe(E,L,L1).
+voegToe(E, node(L,R,W), node(L,R1,W)):-W<E,voegToe(E,R,R1).
+
+%Om het element te verwijderen en een acceptabele boom te krijgen,
+%zoeken we kleinste element dat strikt groter is dan het te verwijderen element
+%en zetten dat op de plaats van het verwijderd element.
+haalWeg(E,node(L,R,W),node(L1,R,W)):-E<W,haalWeg(E,L,L1).
+haalWeg(E,node(L,R,W),node(L,R1,W)):-W<E,haalWeg(E,R,R1).
+
+haalWeg(E,node(L,leeg,E),L).
+haalWeg(E,node(L,R,E), node(L,R1,K)):-kleinsteVanTak(R,K),verwijderKleinsteTak(R,R1).
+
+%Hulpmethode voor haalWeg/3
+verwijderKleinsteTak(node(leeg,leeg,_),leeg).
+verwijderKleinsteTak(node(node(leeg,_,_),R,W), node(leeg,R,W)).
+verwijderKleinsteTak(node(L,R,W), node(L1,R,W)):-verwijderKleinsteTak(L,L1).
+
+%Hulpmethode voor haalWeg/3
+kleinsteVanTak(node(leeg,_,W), W).
+kleinsteVanTak(node(L,_,_), T):- kleinsteVanTak(L,T).
