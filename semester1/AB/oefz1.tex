@@ -1,0 +1,73 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[dutch]{babel}
+\usepackage[dutch]{babelbib}
+\usepackage{amsmath}
+\renewcommand{\familydefault}{\sfdefault}
+
+\title{AB: Oefenzitting 1}
+\author{Stijn Caerts, Pieter-Jan Coenen}
+\date{6 oktober 2016}
+
+\begin{document}
+    \maketitle
+    
+    \section{Oefening 1}
+    Voor de taal $L$ bestaat er een NFA. Als we alle bogen van richting veranderen en de eindtoestand veranderen in de begintoestand en omgekeerd, verkrijgen we een NFA die overeenstemt met $L^{R}$. Aangezien een NFA steeds een reguliere taal bepaalt, is $L^{R}$ regulier. 
+    $$ NFA_1 = \langle Q, \Sigma, \delta, q_s, F \rangle $$
+    $$ NFA_2 = \langle Q \cup \{ q_e \}, \Sigma, \delta^{'}, q_s, \{q_e\} \rangle $$
+    
+    $$ \forall q \in F: \delta^{'}(q,\epsilon) = \{q_e\} $$
+    
+    $$ NFA_R = \langle Q_1, \Sigma, \delta^{''}, q_e, \{q_b\} \rangle $$
+    $$ \forall q_i \in Q, \forall \sigma \in \Sigma: \delta^{''}(q_i,\sigma) = \{q_j \in Q | q_i \in \delta^{'}(q_j,\sigma)\} $$
+    
+    of aan de hand van reguliere expressies:
+    \begin{itemize}
+	\item $ \phi^R = \phi $
+	\item $ \epsilon = \epsilon $
+	\item $ a^R = a $ met $ a \in \Sigma $
+	\item $ (E_1 E_2)^R = E_2^R E_1^R $
+	\item $ (E_1 | E_2)^R = E_1^R | E_2^R $
+	\item $ (E^*)^R = (E^R)^* $
+    \end{itemize}
+
+    
+    
+    \section{Oefening 2}
+    \subsection{a)}
+    \begin{itemize}
+        \item Reguliere expressie: $ 1 ((0|1)1)^{*} (0|1|\epsilon) $ of $ (1(0|1))^{*} 1 | (1(0|1))^{*} $
+    \end{itemize}
+    
+    \subsection{b)}
+    \begin{itemize}
+        \item Reguliere expressie: $ (0)^{*} (001|100|010|00) (0)^{*} $
+    \end{itemize}
+    
+    \subsection{c)}
+    \begin{itemize}
+        \item Reguliere expressie: $ ((0|1)^{*}0(0|1)^{*})|1|11111^{*}|\epsilon $
+    \end{itemize}
+    
+    \subsection{d)}
+    \begin{itemize}
+        \item triviale gevallen: enkel $0$'en, $1$'en of $\epsilon$
+        \item als je begint met een 1, moet je ook eindigen met een 1
+        \item als je begint met een 0, moet je ook eindigen met een 0
+        \item Reguliere expressie:  $ (1 (0|1)^{*} 1) | (0 (0|1)^{*} 0) | (1|0|\epsilon)$
+    \end{itemize}
+    
+    \section{Oefening 3}
+    \subsection{a)}
+    \begin{itemize}
+        \item Reguliere expressie: $ (a^{n})^{*} $
+        \item Automaat: n bogen met a tot eindtoestand, $\epsilon$-boog terug naar begintoestand. Als je nul ziet als een veelvoud van $n$, dan is de begintoestand ook een eindtoestand.
+    \end{itemize}
+    
+    \subsection{b)}
+    \begin{itemize}
+        \item $n$ toestanden die de rest bij deling door $n$ voor stellen.
+        \item Transitiefunctie: $ \delta (q_k, i) = (2k + i) \mod n $
+    \end{itemize}
+\end{document}
