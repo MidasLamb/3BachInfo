@@ -1,6 +1,7 @@
 edge(node(a),node(b)).
 edge(node(b), node(d)).
 edge(node(b), node(c)).
+edge(node(d), node(c)).
 
 node(a).
 node(b).
