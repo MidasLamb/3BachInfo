@@ -1,3 +1,9 @@
+listlength2(A,B) :- 
+    listlength2(A,B,0).
+listlength2([],Acc,Acc).
+listlength2([_|Rest],Length,Acc):-
+    Acc2 is Acc +1,
+    listlength2(Rest,Length,Acc2).
 last([X],X).
 last([_|Rest],X) :-
 	last(Rest,X).
