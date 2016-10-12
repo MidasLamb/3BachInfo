@@ -1,5 +1,5 @@
-fib(0, 0).
-fib(1,1).
+fib(1, 0).
+fib(2,1).
 fib(Position,Result) :-
     Pos1 is Position - 1,
     fib(Pos1, R1),
