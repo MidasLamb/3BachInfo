@@ -123,4 +123,11 @@ maxtree(node(C1-LTree, C2-_),R) :-
 maxtree(node(C1-_, C2-RTree),R) :-
     C1 < C2,
     mintree(RTree,R).
-    
+
+% E-Systant - Prolog - Oefenzitting 1 - Sum tree
+sumtree(nil, 0).
+sumtree(node(L,V,R),D) :-
+    sumtree(L,D1),
+    sumtree(R,D2),
+    D is D1 + V + D2.
+ 
