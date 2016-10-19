@@ -12,4 +12,13 @@ fib(Position,Result) :-
 % voor positie 5 wordt de som berekend van 3 en 4
 % Het cijfer dat op positie 3 staat wordt dus meer dan 2 keer berekend, ook positie 4 wordt opnieuw berekend, 
 % 	terwijl we deze al weten.
-% Betere methode zou zijn door de lijst op te stellen tot het benodigde nummer
+
+% Betere methode is door een lijst op te stellen tot het benodigde nummer:
+fib2(X,Y) :- fib2(X,Y,[1,0]).
+
+fib2(1,0,_).
+fib2(2,Y,[Y|_]).
+fib2(X,Y,[A,B|Rest]) :-
+    X1 is X - 1,
+    R1 is A + B,
+    fib2(X1,Y,[R1,A,B|Rest]).
