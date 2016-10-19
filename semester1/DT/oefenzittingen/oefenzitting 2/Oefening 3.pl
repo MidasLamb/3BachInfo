@@ -16,8 +16,8 @@ fib(Position,Result) :-
 % Betere methode is door een lijst op te stellen tot het benodigde nummer:
 fib2(X,Y) :- fib2(X,Y,[1,0]).
 
-fib2(1,0,_).
-fib2(2,Y,[Y|_]).
+fib2(1,0,_):- !.
+fib2(2,Y,[Y|_]):- !.
 fib2(X,Y,[A,B|Rest]) :-
     X1 is X - 1,
     R1 is A + B,
