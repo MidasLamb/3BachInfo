@@ -1,50 +1,31 @@
-%!esystant
+translate(List, Result):-
+    translate(List, [], 0, Result).
 
-translate(List, Result) :-
-    translate(List, [], Result).
+translate([], _ST, _Count, []):- !.
 
-translate([], _, []):- !.
+translate([def(K)|RL], ST, Count, Result):-
+    NewCount is Count + 1,
+    symbolTableUpdate(pair(K,NewCount), ST, NST),
+    translate(RL, NST, NewCount, RR),
+    Result = [asgn(K, NewCount)|RR].
 
-translate([def(X)|Rest], SL, Result):-
-    symbolListGet(X, SL, R),
-    symbolStore(X-R, SL, NL),
-    translate(Rest, NL, Result2),
-    Result = [asgn(X, R)|Result2].
-
-translate([use(X)|Rest], SL, Result):-
-    symbolListSearch(X, SL, R),
-    (R == null) ->
-    	( 
-    		symbolStore(X-V, SL, NL)
-    	); 
-    	(
-    		NL = SL,
-    		V = R
-    	),
-    translate(Rest, NL, Result2),
-    Result = [use(V)|Result2].
-
-symbolStore(X-R, SL, DNL):-
-    reverse([X-R|SL], NL),
-    list_to_set(NL, DNL).
-
-symbolListSearch(_, [], null):- !.
-
-symbolListSearch(K, [K-V|_], V):- !.
-
-symbolListSearch(S, [_|X], R):-
-    symbolListSearch(S, X, R).
-
-symbolListGet(_, [], 1):- !.
-
-symbolListGet(K, [K-V|_], V):- !.
-
-symbolListGet(K, [_-V|K-var(Y)|_], Y):-
-    Y is V + 1.
-
-symbolListGet(_, [_-V|[]], R):-
-    R is V + 1,
+translate([use(K)|RL], ST, Count, Result):-
+    symbolTableUpdate(pair(K,V), ST, NST),
+    translate(RL, NST, Count, RR),
+    Result = [use(V)|RR].
+    
+symbolTableUpdate(NV, ST, ST):-
+    symbolTableUpdateV(NV, ST, updated),
     !.
+    
+symbolTableUpdate(NV, ST, [NV|ST]):- !.
 
-symbolListGet(S, [_|X], R):-
-    symbolListGet(S, X, R).
+
+symbolTableUpdateV(_, [], null):- !.
+
+symbolTableUpdateV(pair(K,V), [pair(K,V)|_], updated):- !.
+
+symbolTableUpdateV(NV, [_|Rest], Result):-
+    symbolTableUpdateV(NV, Rest, Result).
+    
+    
