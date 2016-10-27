@@ -29,3 +29,20 @@ symbolTableUpdateV(NV, [_|Rest], Result):-
     symbolTableUpdateV(NV, Rest, Result).
     
     
+%% Cheeky breeky method:
+%Deze translate is niet de bedoeling: het maakt gebruik van 1 pass-trough, maar het vult de symbooltabel in op de weg naar beneden, en negeert de "use", om dan op de weg naar bove deze in te vullen.
+translate(L,R):- htranslate(L,[],_,1,R).
+
+htranslate([],H,H,_,[]).
+htranslate([def(A)|Re],H,Acc, C, [asgn(A,C)|R]):-
+        C1 is C + 1,
+        htranslate(Re,[pair(A,C)|H],Acc, C1, R).
+        
+htranslate([use(A)|Re],H,Acc, C,[use(N)|R]):-
+        htranslate(Re,H,Acc,C,R),  %Dat dit geen staartrecursie is, zorgt ervoor dat deze methode werkt.
+        findN(A, Acc,N).
+        
+findN(A,[pair(A,N)|_], N):- !.
+findN(A,[_|R], N):- findN(A,R,N).
+    
+    
