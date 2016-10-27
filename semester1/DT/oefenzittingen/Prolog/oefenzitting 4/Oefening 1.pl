@@ -14,6 +14,9 @@ translate([use(K)|RL], ST, Count, Result):-
     translate(RL, NST, Count, RR),
     Result = [use(V)|RR].
     
+% The clue of the symbol table is that when you encounter a use(X), you add a pair(X,V), in which V is a free variable for the moment.
+% When you then encounter a def(X), you will fill in the symbol table for pair(X,V) and unify the V with the counter on that moment.
+
 symbolTableUpdate(NV, ST, ST):-
     symbolTableUpdateV(NV, ST, updated),
     !.
