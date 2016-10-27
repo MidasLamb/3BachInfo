@@ -4,7 +4,7 @@
 # Doel van deze repository
 De bedoeling van deze repository is om notities, samenvattingen, uitleg,... van de derde bachelor informatica te verzamelen in één plek. 
 
-# Conventies
+# Richtlijnen
 * Vermijd PDF's*.
 * Vermijd foto's van notities*.
 * Vraag niet om contributor te worden, stuur pull requests.
