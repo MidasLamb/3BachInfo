@@ -1,27 +1,22 @@
-%Niet juist !
+alpha_beta(leaf(X,S),_Alpha,_Beta,X,leaf(X,S)).
+   
+alpha_beta(min(X,_Y),Alpha,Beta,ScoreX,min(NewtreeX,nill)):-
+    alpha_beta(X,Alpha,Beta,ScoreX,NewtreeX),
+    Alpha >= ScoreX,
+    !.
+ 
+alpha_beta(min(X,Y),Alpha,Beta,Score,min(NewtreeX,NewtreeY)):-
+    alpha_beta(X,Alpha,Beta,ScoreX,NewtreeX),
+    alpha_beta(Y,Alpha,ScoreX,ScoreY,NewtreeY),
+    Score is min(ScoreX,ScoreY).
 
-alpha_beta(leaf(S,V),_Alpha,_Beta,S,leaf(S,V)).
-alpha_beta(max(L,R), Alpha, Beta, Alpha, Newtree) :-
-    alpha_beta(L, Alpha, Beta, SL, NewTreeL),
-    alpha_beta(R, Alpha, Beta, SR, NewTreeR),
-    SL > SR,
-    Alpha = SL,
-    Newtree = max(NewTreeL, NewTreeR).
-alpha_beta(max(L,R), Alpha, Beta, Alpha, Newtree) :-
-    alpha_beta(L, Alpha, Beta, SL, NewTreeL),
-    SL =< SR,
-    NewAlpha = SR,
-    alpha_beta(R, NewAlpha, Beta, SR, NewTreeR),
-    Newtree = max(NewTreeL, NewTreeR).
-alpha_beta(min(L,R), Alpha, Beta, Beta, Newtree) :-
-    alpha_beta(L, Alpha, Beta, SL, NewTreeL),
-    alpha_beta(R, Alpha, Beta, SR, NewTreeR),
-    SL > SR,
-    Beta = SR,
-    Newtree = min(NewTreeL, NewTreeR).
-alpha_beta(min(L,R), Alpha, Beta, Beta, Newtree) :-
-    alpha_beta(L, Alpha, Beta, SL, NewTreeL),
-    alpha_beta(R, Alpha, Beta, SR, NewTreeR),
-    SL =< SR,
-    Beta = SL,
-    Newtree = min(NewTreeL, NewTreeR).
+
+alpha_beta(max(X,_Y),Alpha,Beta,ScoreX,max(NewtreeX,nill)):-
+    alpha_beta(X,Alpha,Beta,ScoreX,NewtreeX),
+    ScoreX >= Beta,
+    !.
+
+alpha_beta(max(X,Y),Alpha,Beta,Score,max(NewtreeX,NewtreeY)):-
+    alpha_beta(X,Alpha,Beta,ScoreX,NewtreeX),
+    alpha_beta(Y,ScoreX,Beta,ScoreY,NewtreeY),
+    Score is max(ScoreX,ScoreY).
