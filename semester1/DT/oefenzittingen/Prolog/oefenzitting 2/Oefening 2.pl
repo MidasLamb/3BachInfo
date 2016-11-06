@@ -1,38 +1,32 @@
-edge(node(a),node(b)).
-edge(node(b), node(d)).
-edge(node(b), node(c)).
-edge(node(d), node(c)).
-
 node(a).
 node(b).
 node(c).
 node(d).
 node(e).
+edge(a,b).
+edge(b,c).
+edge(b,d).
+edge(c,d).
 
-neighbor(X,Y) :-
-    edge(node(X),node(Y)).
-neighbor(X,Y) :-
-    edge(node(Y), node(X)).
+neighbor(X,Y):-
+    edge(X,Y);
+    edge(Y,X).
 
-% Versie 1
-path(X,Y) :-
+path(X,Y):-
     neighbor(X,Y).
-path(X,Y) :-
-    neighbor(X,Z),
+
+path(X,Y):-
+    path(X,Z),
     path(Z,Y).
 
-% Versie 2
-path2(X,Y) :-
+path2(X,Y):-
     path2(X,Y,[]).
 
-path2(X,Y,_) :-
+path2(X,Y,L):-
     neighbor(X,Y),
-	X \= Y.
+    \+ member(Y,L).
 
-path2(X,Y,L) :-
+path2(X,Y,L):- 
     neighbor(X,Z),
     \+ member(Z,L),
-    path2(Z,Y,[Z|L]),
-    X \= Y,
-    Y \= Z,
-    X \= Z.
+    path2(Z,Y,[X,Z|L]).
