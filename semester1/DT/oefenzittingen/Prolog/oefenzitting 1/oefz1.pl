@@ -22,7 +22,9 @@ ancestor(X,Y) :-
     father(Z,Y),
     ancestor(X,Z).
     
-
+    
+% OEFENING 4
+    
 peano_plus(zero,X,X).
 
 peano_plus(s(X),Y,s(Z)) :- peano_plus(X,Y,Z).
@@ -38,6 +40,23 @@ maximum(X,X,X).
 maximum(X,Y,X) :- greater_than(X,Y).
 maximum(X,Y,Y) :- greater_than(Y,X).
 
+% EXTRA
+peano_min2(X,Y,Z) :-
+    peano_plus(Z,Y,X).
+    
+peano_div(X,Y,zero,X) :-
+    greater_than(Y,X).
+    
+peano_div(X,X,s(zero),zero).
+    
+peano_div(X,Y,s(D),R) :-
+    greater_than(X,Y),
+    peano_min(X,Y,Z),
+    peano_div(Z,Y,D,R).
+    
+
+% OEFENING 5
+    
 depth(nil, 0).
 depth(node(L,_,R),D) :- 
     depth(L,A),
