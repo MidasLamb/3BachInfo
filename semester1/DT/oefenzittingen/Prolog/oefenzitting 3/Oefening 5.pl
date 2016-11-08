@@ -1,23 +1,31 @@
-%!esystant
-
-queens(N,S) :-
-    numlist(1, N, List),
-    permutation(List, S),
-    check(N,S).
-
-
+queens(N,PList) :-
+    numlist(1,N,List),
+    permutation(List,PList),
+    validConfiguration(N,PList).
     
-check(_, []) :- !.
-
-check(N, [E|L]) :-
-    checkRow(E, 1, N, L),
-    check(N, L).
-
-checkRow(_,_,_,[]) :- !.
     
-checkRow(H, R, N, [E|L]) :-
-    H \= E,
-    H + R mod N =\= E,
-    E + R mod N =\= H,
-    NR is R +1,
-    checkRow(H, NR, N, L).	
+validConfiguration(N,Configuration) :-
+    checkDiagonaal(N,Configuration,1).
+    
+checkDiagonaal(N,_,Column) :-
+    N =< Column , !.
+checkDiagonaal(N,[Position|Rest],Column) :-
+    N > Column,
+    checkDiagonaalForPosition(N,Position,Rest,Column,1),
+    ColumnNew is Column + 1,
+    checkDiagonaal(N,Rest,ColumnNew).
+    
+checkDiagonaalForPosition(N,_,_,Column,Offset) :-
+    N < Column + Offset, !.
+    
+checkDiagonaalForPosition(N,Position,[Head|Tail],Column,Offset) :-
+    N >= Column + Offset,
+    
+    PositionUp is Position + Offset,
+    PositionDown is Position - Offset,
+    
+    PositionUp \= Head,
+    PositionDown \= Head,
+    
+    OffsetNew is Offset + 1,
+    checkDiagonaalForPosition(N,Position,Tail,Column,OffsetNew).
