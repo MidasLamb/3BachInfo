@@ -24,15 +24,16 @@ read_tape(pair(C,_),C).
 % write/3: Writes a symbol under the head.
 write_tape(C,pair(_,R),pair(C,R)).
 
-%% Other solution which exists out of representing the tape as 1 pair of lists, where the first element of the "right" list represents the element under the head:
+%% Other solution
 % move/3: Moves the head in a certain direction.
-move(right,pair([L|Lr],[R|Rr]),pair([R,L|Lr],[Rr])).
+move(right,(LL,Head,[LR|LRrest]),([Head|LL],LR,LRrest)).
+move(left,([LL|LLrest],Head,LR),(LLrest,LL,[Head|LR])).
 
-    
-move(left,pair([L|Lr],[R|Rr]),pair([Lr],[L,R|Rr])).
 
 % read/2: Reads the symbol under the head.
-read_tape(pair([_],[R|_],R)).
+read_tape((_,Head,_),Head).
+    
 
 % write/3: Writes a symbol under the head.
-write_tape(S,pair([_],[_|_]),pair([_],[S|_])).
+write_tape(Symbol,_,(_,Symbol,_)).
+    
