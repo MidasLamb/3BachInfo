@@ -12,7 +12,7 @@ factorial n
     | n == 0 = 1
     | n > 0 = factorial (n-1) * n
 -- andere oplossing:
-factorial n = product[1..n]
+factorial n = product [1..n]
 
 sumInts :: Int -> Int -> Int
 
@@ -20,7 +20,7 @@ sumInts low high
     | low > high = 0
     | otherwise = sum [low .. high]
 -- andere oplossing:
-sumInts low high = sum[low..high]
+sumInts low high = sum [low..high]
 
 myRepeat :: Int -> Int -> [Int]
 
