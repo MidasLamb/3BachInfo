@@ -33,9 +33,7 @@ flatten (x : xs) = (x) ++ (flatten xs)
 
 range :: Int -> Int -> [Int]
 
-range low high 
-    | low > high = []
-    | otherwise = [low..high]
+range low high = [low..high]
 
 removeMultiples :: Int -> [Int] -> [Int]
 
