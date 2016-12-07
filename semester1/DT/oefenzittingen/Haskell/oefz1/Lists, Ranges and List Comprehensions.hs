@@ -11,25 +11,32 @@ factorial 0 = 1
 factorial n 
     | n == 0 = 1
     | n > 0 = factorial (n-1) * n
-
+-- andere oplossing:
+factorial n = product [1..n]
 
 sumInts :: Int -> Int -> Int
 
 sumInts low high
     | low > high = 0
     | otherwise = sum [low .. high]
+-- andere oplossing:
+sumInts low high = sum [low..high]
 
 myRepeat :: Int -> Int -> [Int]
 
 myRepeat n x
     | n <= 0 = []
     | otherwise = [x] ++ (myRepeat (n-1) (x))
+-- andere oplossing
+myRepeat n x = take n [x,x..]
 
 flatten :: [[Int]] -> [Int]
 
 flatten [] = []
 
 flatten (x : xs) = (x) ++ (flatten xs)
+-- andere oplossing:
+flatten list = [x | xs <- list, x <- xs]
 
 range :: Int -> Int -> [Int]
 
