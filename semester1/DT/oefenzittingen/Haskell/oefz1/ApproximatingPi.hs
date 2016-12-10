@@ -7,10 +7,14 @@ module ApproximatingPi where
 sumf :: [Float] -> Float
 sumf [] = 0.0
 sumf (x:xs) = x + sumf xs
+-- andere oplossing
+sumf = sum
 
 productf :: [Float] -> Float
 productf [] = 1.0
 productf (x:xs) = x * productf xs
+-- andere oplossing
+productf = product
 
 piSum :: Float -> Float
 piSum n = 8 * sumf [1/((4*k+1)*(4*k+3)) | k<-[0..n]]
