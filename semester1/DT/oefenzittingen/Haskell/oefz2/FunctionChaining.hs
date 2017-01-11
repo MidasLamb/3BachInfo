@@ -1,9 +1,12 @@
 applyAll :: [a -> a] -> a -> a
-applyAll = error "Not implemented"
+applyAll [f] v = f v
+applyAll (f:fs) v = f $ applyAll fs v
 
 applyTimes :: Int -> (a -> a) -> a -> a
-applyTimes = error "Not implemented"
+applyTimes n f v
+    | n == 0    = v
+    | otherwise = applyTimes (n-1) f (f v)
 
 applyMultipleFuncs :: a -> [a -> b] -> [b]
-applyMultipleFuncs = error "Not implemented"
+applyMultipleFuncs a fs = [f a | f <- fs]
 
