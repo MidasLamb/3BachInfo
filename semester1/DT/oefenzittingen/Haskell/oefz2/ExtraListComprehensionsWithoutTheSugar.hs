@@ -12,7 +12,7 @@ lc3 f n = [ f a b c | a <- [1..n]
           ]
 
 lc1' :: (a -> b) -> (a -> Bool) -> [a] -> [b]
-lc1' = error "Not implemented"
+lc1' f p as = map f (filter p as)
 
 lc2' :: (a -> b -> c) -> [a] -> (a -> [b]) -> (b -> Bool) -> [c]
 lc2' = error "Not implemented"
