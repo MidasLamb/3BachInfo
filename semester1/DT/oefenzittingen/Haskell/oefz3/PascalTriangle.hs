@@ -5,11 +5,16 @@ module Template where
 -- ----------------------------------------------------------------------------
 
 row :: [Integer] -> [Integer]
-row = error "Not implemented"
+
+row prev = [1] ++ new ++ [1]
+    where
+        new = [prev !! i + prev !! (i-1) | i <- [1..length prev -1]]
+
+
 
 pascal :: [[Integer]]
-pascal = error "Not implemented"
+pascal = [1] : [row l | l <- pascal]
 
 bincoeff :: Int -> Int -> Integer
-bincoeff = error "Not implemented"
+bincoeff x y = (pascal !! x) !! y
 
