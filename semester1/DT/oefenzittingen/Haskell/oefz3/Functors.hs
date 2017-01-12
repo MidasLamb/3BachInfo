@@ -22,11 +22,11 @@ instance Show (Unit a) where
   show Unit = "Unit"
 
 instance Functor Identity where
-  fmap = error "Not implemented"
+  fmap f (Identity a) = Identity (f a)
 
 instance Functor (Pair a) where
-  fmap = error "Not implemented"
+  fmap f (Pair a b) = Pair a (f b) 
 
 instance Functor Unit where
-  fmap = error "Not implemented"
+  fmap f _ = Unit
 
