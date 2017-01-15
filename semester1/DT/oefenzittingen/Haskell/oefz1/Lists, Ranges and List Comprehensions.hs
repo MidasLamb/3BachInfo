@@ -63,4 +63,4 @@ removeMultiples x (y:ys)
     | otherwise = [y] ++ removeMultiples x ys
     
 -- oplossing met list comprehension
-removeMultiples n list = [a | a <- list, not(mod a n == 0)]
+removeMultiples n list = [a | a <- list, mod a n /= 0]
