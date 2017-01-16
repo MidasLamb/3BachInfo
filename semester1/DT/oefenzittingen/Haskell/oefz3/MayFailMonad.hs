@@ -42,9 +42,8 @@ eval e
                         return $ x*y
     |Div e1 e2 <- e =   eval e1 >>= \x ->
                         eval e2 >>= \y ->
-                        if(y == 0)
-                            then Error "Division by zero"
-                            else return $ div x y
+                        safeDiv x y
+                        
 evalDo :: Exp -> MayFail String Int
 evalDo e 
     |Lit x <- e = return x
