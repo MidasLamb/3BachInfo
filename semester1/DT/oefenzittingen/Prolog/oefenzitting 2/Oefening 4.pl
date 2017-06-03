@@ -8,7 +8,8 @@ balanced(node(A,_,B),Y) :-
     	(L2 is L1 + 1, Y is L2 + 1);
     	(L1 is L2, Y is L1 +1)
     ).
-
+    
+add_to(empty,X,node(empty,X,empty)).
 add_to(node(empty,Y,Z),X,node(node(empty,X,empty),Y,Z)).
 add_to(node(Z,Y,empty),X,node(Z,Y,node(empty,X,empty))).
 add_to(node(A,C,B),X,R) :-
