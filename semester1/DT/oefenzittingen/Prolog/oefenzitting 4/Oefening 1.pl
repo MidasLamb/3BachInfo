@@ -48,4 +48,38 @@ htranslate([use(A)|Re],H,Acc, C,[use(N)|R]):-
 findN(A,[pair(A,N)|_], N):- !.
 findN(A,[_|R], N):- findN(A,R,N).
     
+%% SOLUTION A LA JONAH BELLEMANS:
+
+%!esystant
+
+translate(List, Output) :-
+    translate(List, [], 0, Output).
     
+translate([], _, _, []).
+
+translate([def(X) | RestInp], PrevST, PrevCount, Output) :-
+    member(pair(X, N), PrevST) -> 
+    (
+    Count is PrevCount + 1,
+    N = Count,
+    translate(RestInp, PrevST, Count, RestOutp),
+    Output = [asgn(X, Count) | RestOutp]
+    );
+    (
+    Count is PrevCount + 1,
+    ST = [pair(X, Count) | PrevST],
+    translate(RestInp, ST, Count, RestOutp),
+    Output = [asgn(X, Count) | RestOutp]
+    ).
+    
+translate([use(X) | RestInp], ST, Count, Output) :-
+    member(pair(X, Y), ST) -> 
+    (
+    translate(RestInp, ST, Count, RestOutp),
+    Output = [use(Y) | RestOutp]
+    ) ;
+    (
+    NewST = [pair(X, Num) | ST], 
+    translate(RestInp, NewST, Count, RestOutp),
+    Output = [use(Num) | RestOutp]
+    ).
