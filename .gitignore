@@ -182,3 +182,6 @@ TSWLatexianTemp*
 
 # Mac
 .DS_Store
+
+# Windows
+Thumbs.db
