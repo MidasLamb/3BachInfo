@@ -19,6 +19,14 @@ removeMultiples n [] = []
 removeMultiples n (x:xs)
   | x `mod` n == 0 = removeMultiples n xs
   | otherwise = x : removeMultiples n xs
+  
+-- Andere oplossing met list comprehension
+sieve :: Int -> [Int]
+sieve n = removeMultiples [2..n]
+
+removeMultiples :: [Int] -> [Int]
+removeMultiples [] = []
+removeMultiples (x: xs) = x : removeMultiples [ a | a <- xs, mod a x /= 0]
 
 -- -------------------------
 -- Some useful functions
