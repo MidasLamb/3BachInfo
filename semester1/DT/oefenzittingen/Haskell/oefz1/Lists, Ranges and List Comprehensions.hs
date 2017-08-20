@@ -53,6 +53,9 @@ range :: Int -> Int -> [Int]
 
 range low high = [low..high]
 
+--oplossing met list comprehension
+range low high = [i|i<-[low..high]]
+
 ---------------------------------------------------------
 removeMultiples :: Int -> [Int] -> [Int]
 
